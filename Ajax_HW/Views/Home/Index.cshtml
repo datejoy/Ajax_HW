@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@section Styles{ 
+ <style>
+     table{
+         border:1px solid;
+     }
+ </style>
+ }
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <button type="button" class="btn btn-primary">click</button>
+</div>
+
+@section Scripts{
+<script>
+    var emp = {
+        "employees": [
+            { "name": "Tom", "workYears": 3, "salary": 35000 },
+            { "name": "Jack", "workYears": 5, "salary": 40000 },
+            { "name": "Mary", "workYears": 7, "salary": 45000 }
+        ]
+    };
+
+    const btn = document.querySelector(".btn");
+    const employee = emp.employees;
+
+    document.write('<table id="tableid"><tr></tr></table>');
+    btn.addEventListener("click", () => {
+        for (let item in employee[0]) {   //for in 抓屬性名
+            document.querySelector("tr").innerHTML+=`<td>${item}</td>`;
+        }
+        for (let value of employee) {
+            document.querySelector("table").innerHTML += `<tr><td>${value.name}</td><td>${value.workYears}</td><td>${value.salary}</td></tr>`;
+        }
+    })
+
+</script>
+ }
