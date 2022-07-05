@@ -47,8 +47,8 @@
             
         })
 
-        const params = `name=${txtname.val()}`;
-        console.log(params);
+        //const params = `?name=${txtname.val()}`;
+        //console.log(params);
         xhr.open("GET", '@Url.Content("~/Home/CheckMember")' + `?name=${txtname.val()}`); //傳到哪裡
         xhr.send();  //發送
 
