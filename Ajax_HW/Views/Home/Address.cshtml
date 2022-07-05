@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewData["Title"] = "Address";
+}
+
+<h1>Address</h1>
+
+<select id="sel1" name="city"></select>
+<select id="sel2" name="district"></select>
+<select id="sel3" name="road"></select>
+
+@section Scripts{
+    <script>
+        let sel1 = $("#sel1");
+        let sel2 = $("#sel2");
+        let sel3 = $("#sel3");
+
+        async function LoadCity () {
+            const cityrespon = await fetch('@Url.Content("~/Home/City")');
+            const citydata = await cityrespon.json();
+           // console.log(citydata); //array
+            citydata.forEach(city => {
+             //   console.log(city);  //名字
+                let opt = new Option(city, city);
+                $(opt).appendTo(sel1);
+            });
+            LoadDistrict();
+        }
+
+        
+
+
+        async function LoadDistrict() {
+            const districrespon = await fetch('@Url.Content("~/Home/Districts")' + `?city=${sel1.val()}`);
+            const districdata = await districrespon.json();
+            //console.log(districdata); //array
+            districdata.forEach(dist => {
+               // console.log(dist); //縣市+區 ex: 台北市文山區
+                let opt = new Option(dist, dist);
+                $(opt).appendTo(sel2);
+            })
+            LoadRoad();
+        }
+
+        async function LoadRoad() {
+            const roadrespon = await fetch('@Url.Content("~/Home/Roads")' + `?district=${sel2.val()}`);
+            const roaddata = await roadrespon.json();
+            //console.log(roaddata);  //街名
+            roaddata.forEach(road => {
+                let opt = new Option(road, road);
+                $(opt).appendTo(sel3);
+            })
+        }
+
+
+        
+
+        LoadCity();
+        sel1.change(() => {
+            sel2.children().remove();
+            LoadDistrict();
+            //console.log(sel1.val())
+        });
+
+        sel2.change(() => {
+            sel3.children().remove();
+            LoadRoad();
+        })
+
+
+        //LoadDistrict();
+
+    </script>
+}

@@ -43,6 +43,28 @@ namespace Ajax_HW.Controllers
             
         }
 
+        public IActionResult Address()
+        {
+            return View();
+        }
+
+
+        public IActionResult City()
+        {
+            var cities = _context.Addresses.Select(a => a.City).Distinct();
+            return Json(cities);
+        }
+        public IActionResult Districts(string city)
+        {
+            var districts = _context.Addresses.Where(a => a.City == city).Select(d => d.SiteId).Distinct();
+            return Json(districts);
+        }
+        public IActionResult Roads(string district)
+        {
+            var roads = _context.Addresses.Where(a => a.SiteId == district).Select(r => r.Road);
+            return Json(roads);
+        }
+
 
         public IActionResult Privacy()
         {
