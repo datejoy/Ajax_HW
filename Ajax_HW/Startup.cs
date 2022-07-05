@@ -1,6 +1,8 @@
+using Ajax_HW.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,6 +25,11 @@ namespace Ajax_HW
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllersWithViews();
+            services.AddDbContext<DemoContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("DemoConnection"));//←要跟appsetting裡面的屬性一樣
+            });
             services.AddControllersWithViews();
         }
 
@@ -50,7 +57,7 @@ namespace Ajax_HW
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Login}/{id?}");
             });
         }
     }
