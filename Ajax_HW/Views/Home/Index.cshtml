@@ -28,11 +28,12 @@
 
     const btn = document.querySelector(".btn");
     const employee = emp.employees;
-
-    document.write('<table id="tableid"><tr></tr></table>');
+    const div = document.querySelector(".text-center");
+    //div.innerHTML += '<table id="tableid" class="table table-bordered"><tr></tr></table>';
+    document.write('<table id="tableid" class="table table-bordered"><tr></tr></table>');
     btn.addEventListener("click", () => {
         for (let item in employee[0]) {   //for in 抓屬性名
-            document.querySelector("tr").innerHTML+=`<td>${item}</td>`;
+            document.querySelector("tr").innerHTML += `<td>${item}</td>`;
         }
         for (let value of employee) {
             document.querySelector("table").innerHTML += `<tr><td>${value.name}</td><td>${value.workYears}</td><td>${value.salary}</td></tr>`;
